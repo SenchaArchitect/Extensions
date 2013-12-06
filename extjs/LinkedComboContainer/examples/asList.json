@@ -1,0 +1,33 @@
+    [{
+        state: 'CA',
+        county: 'San Mateo',
+        city: 'San Mateo'
+    },{
+        state: 'CA',
+        county: 'San Mateo',
+        city: 'Burlingame'
+    },{
+        state: 'CA',
+        county: 'Santa Clara',
+        city: 'Palo Alto'
+    },{
+        state: 'CA',
+        county: 'Santa Clara',
+        city: 'Sunnyvale'
+    },{
+        state: 'MD',
+        county: 'Frederick',
+        city: 'Frederick'
+    },{
+        state: 'MD',
+        county: 'Frederick',
+        city: 'Middletown'
+    },{
+        state: 'MD',
+        county: 'Carroll',
+        city: 'Westminster'
+    },{
+        state: 'MD',
+        county: 'Carroll',
+        city: 'Eldersburg'
+    }]
