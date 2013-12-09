@@ -53,7 +53,7 @@ Ext.onReady(function() {
         // layout: 'hbox',
         // show the combos as they are available
         // (hide them at first). Another option here is 'enable'
-        // disclosureMode: 'show',
+        disclosureMode: 'show',
         // configs to be passed to all combos created.
         defaultComboConfig: {
             width: 350
