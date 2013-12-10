@@ -1,0 +1,26 @@
+{
+    "name": "CountryStateSelect",
+    "type": "code",
+    "creator": "Jason Minnick",
+    "summary": "Country / State Select Extension",
+    "detailedDescription": "This extension includes a simple Country and State/Province selector, pre-populated with data using the GeoNames API.",
+    "version": "1.0.2",
+    "compatVersion": "1",
+    "architect": {
+        "compatFrameworks": [
+            "touch20",
+            "touch21",
+            "touch22",
+            "touch23"
+        ],
+        "requires": [
+        ],
+        "classes": [{
+            "definition": "CountryStateSelect.js",
+            "className": "sencha.select.CountryStateSelect",
+            "js": ["CountryStateSelect.js"],
+            "css": []
+        }]
+    },
+    "local": true
+}
