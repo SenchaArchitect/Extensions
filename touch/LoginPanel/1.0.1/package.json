@@ -1,0 +1,30 @@
+{
+    "name": "LoginPanel",
+    "type": "code",
+    "creator": "anonymous",
+    "summary": "Login Panel Extension",
+    "detailedDescription": "This extension allows easy creation of a commonly used login panel widget",
+    "version": "1.0.1",
+    "compatVersion": "1.0.0",
+    "format": "1",
+    "architect": {
+        "compatFrameworks": [
+            "touch20",
+            "touch21",
+            "touch22",
+            "touch23"
+        ],
+        "classes": [{
+            "className": "sencha.login.LoginPanel",
+            "definition": "LoginPanel.js",
+            "js": [
+                "loginpanel.js"
+            ],
+            "css": [
+                "loginpanel.css"
+            ]
+        }]
+    },
+    "local": true,
+    "requires": []
+}
