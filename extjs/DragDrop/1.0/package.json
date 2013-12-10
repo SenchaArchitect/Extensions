@@ -1,0 +1,26 @@
+{
+    "name": "DragDrop",
+    "type": "code",
+    "creator": "anonymous",
+    "summary": "Drag / Drop Extension",
+    "detailedDescription": "Using this extension, a developer can easily allow any panel to be dragged/dropped to swap locations with another.",
+    "version": "1.0",
+    "compatVersion": "1",
+    "architect": {
+        "compatFrameworks": [
+            "ext42"
+        ],
+        "classes": [{
+            "definition": "DragDropDefinition.js",
+            "className": "Ext.ux.DragDropRegion",
+            "js": [
+                "DragDropRegion.js"
+            ],
+            "css": [
+                "DragDropRegion.css"
+            ]
+        }]
+    },
+    "local": true,
+    "requires": []
+}
