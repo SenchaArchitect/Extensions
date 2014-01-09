@@ -268,8 +268,40 @@ Ext.define('Ext.ux.LinkedComboContainer', {
              */
             'select'
         );
-        var comboConfigs = this.comboConfigs || [],
-            userComboConfig,
+
+        var usingComboConfigs = !!this.comboConfigs,
+            comboConfigs = this.comboConfigs || this.items.getRange() || [];
+
+        if (usingComboConfigs) {
+            this.processComboConfigs(comboConfigs);
+        } else {
+            this.processComboBoxes(comboConfigs);
+        }
+    },
+
+    processComboBoxes: function(comboConfigs) {
+        var i = 0,
+            ln = comboConfigs.length,
+            combo;
+
+        this.maxIndex = ln - 1;
+
+        for (; i < ln; i++) {
+            combo = comboConfigs[i];
+
+            // ensure queryMode is local
+            combo.queryMode = 'local';
+
+            // ensure doLoad knows this has a user provided store
+            combo.userProvidedStore = !!combo.store;
+            
+            // attach necessary listeners
+            this.addComboEvents(combo);
+        }
+   },
+
+    processComboConfigs: function(comboConfigs) {
+        var userComboConfig,
             comboConfig,
             combo,
             store,
@@ -278,13 +310,14 @@ Ext.define('Ext.ux.LinkedComboContainer', {
         this.maxIndex = ln - 1;
 
         // <debug>
-        if (!comboConfigs || !ln) {
-            Ext.Error.raise("Ext.ux.LinkedComboContainer: No valid comboConfigs supplied. Please pass in an array of comboConfigs.");
-        }
-        if (!this.store && this.loadMode === 'aslist') {
-            Ext.Error.raise("Ext.ux.LinkedComboContainer: No store was provided to LinkedComboContainer and loadMode is set to 'aslist'.");
-        }
+        // if (!comboConfigs || !ln) {
+        //     Ext.Error.raise("Ext.ux.LinkedComboContainer: No valid comboConfigs supplied. Please pass in an array of comboConfigs.");
+        // }
+        // if (!this.store && this.loadMode === 'aslist') {
+        //     Ext.Error.raise("Ext.ux.LinkedComboContainer: No store was provided to LinkedComboContainer and loadMode is set to 'aslist'.");
+        // }
         // </debug>
+
         if (this.store) {
             this.store = Ext.StoreMgr.lookup(this.store);
         }
@@ -349,14 +382,21 @@ Ext.define('Ext.ux.LinkedComboContainer', {
             }
 
             Ext.apply(comboConfig, userComboConfig);
+            
             combo = this.add(comboConfig);
-            // no events are exposed onTriggerClick and we'd like users to be able to use any subclass
-            // of combobox without subclassing a custom one, therefore we hijack triggerClick
-            combo.onTriggerClick = Ext.Function.createInterceptor(combo.onTriggerClick, this.onBeforeComboTriggerClick, this);
-            combo.on('select', this.onComboSelect, this);
-
-            this.combos.add(combo);
+            
+            this.addComboEvents(combo);
         }
+    },
+
+    addComboEvents: function(combo) {
+        // add to our list of combos
+        this.combos.add(combo);
+
+        // no events are exposed onTriggerClick and we'd like users to be able to use any subclass
+        // of combobox without subclassing a custom one, therefore we hijack triggerClick
+        combo.onTriggerClick = Ext.Function.createInterceptor(combo.onTriggerClick, this.onBeforeComboTriggerClick, this);
+        combo.on('select', this.onComboSelect, this);
     },
 
     /**
@@ -406,6 +446,7 @@ Ext.define('Ext.ux.LinkedComboContainer', {
             // used to prevent dups and determine if we already included
             hitMap = {},
             data,
+            key,
             i = 0, ln = records.length,
             recordData;
 
