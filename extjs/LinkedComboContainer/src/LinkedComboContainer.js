@@ -279,15 +279,15 @@ Ext.define('Ext.ux.LinkedComboContainer', {
         }
     },
 
-    processComboBoxes: function(comboConfigs) {
+    processComboBoxes: function(comboBoxes) {
         var i = 0,
-            ln = comboConfigs.length,
+            ln = comboBoxes.length,
             combo;
 
         this.maxIndex = ln - 1;
 
         for (; i < ln; i++) {
-            combo = comboConfigs[i];
+            combo = comboBoxes[i];
 
             // ensure queryMode is local
             combo.queryMode = 'local';
