@@ -270,38 +270,8 @@ Ext.define('Ext.ux.LinkedComboContainer', {
         );
 
         var usingComboConfigs = !!this.comboConfigs,
-            comboConfigs = this.comboConfigs || this.items.getRange() || [];
-
-        if (usingComboConfigs) {
-            this.processComboConfigs(comboConfigs);
-        } else {
-            this.processComboBoxes(comboConfigs);
-        }
-    },
-
-    processComboBoxes: function(comboBoxes) {
-        var i = 0,
-            ln = comboBoxes.length,
-            combo;
-
-        this.maxIndex = ln - 1;
-
-        for (; i < ln; i++) {
-            combo = comboBoxes[i];
-
-            // ensure queryMode is local
-            combo.queryMode = 'local';
-
-            // ensure doLoad knows this has a user provided store
-            combo.userProvidedStore = !!combo.store || this.store;
-            
-            // attach necessary listeners
-            this.addComboEvents(combo);
-        }
-   },
-
-    processComboConfigs: function(comboConfigs) {
-        var userComboConfig,
+            comboConfigs = this.comboConfigs || this.items.getRange() || [],
+            userComboConfig,
             comboConfig,
             combo,
             store,
@@ -322,7 +292,6 @@ Ext.define('Ext.ux.LinkedComboContainer', {
             this.store = Ext.StoreMgr.lookup(this.store);
         }
 
-
         for (; i < ln; i++) {
             userComboConfig = comboConfigs[i];
             Ext.applyIf(userComboConfig, this.defaultComboConfig);
@@ -334,7 +303,12 @@ Ext.define('Ext.ux.LinkedComboContainer', {
                 Ext.Error.raise("Ext.ux.LinkedComboContainer: Providing your own store for each combo with a loadMode of 'aslist' is not supported.");
             }
             if (userComboConfig.queryMode) {
-                Ext.Error.raise("Ext.ux.LinkedComboContainer: Combos cannot be configured with a queryMode.");
+                if (!usingComboConfigs) {
+                    // force set to local here.
+                    userComboConfig.queryMode = 'local';
+                } else {
+                    Ext.Error.raise("Ext.ux.LinkedComboContainer: Combos cannot be configured with a queryMode.");
+                }
             }
             if (userComboConfig.value) {
                 Ext.Error.raise("Ext.ux.LinkedComboContainer: Setting a combo to a default value is not supported.");
@@ -382,8 +356,13 @@ Ext.define('Ext.ux.LinkedComboContainer', {
             }
 
             Ext.apply(comboConfig, userComboConfig);
-            
-            combo = this.add(comboConfig);
+
+            if (usingComboConfigs) {
+                combo = this.add(comboConfig);
+            } else {
+                combo = userComboConfig;
+                combo.userProvidedStore = !!userComboConfig.store;
+            }
             
             this.addComboEvents(combo);
         }
