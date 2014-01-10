@@ -293,7 +293,7 @@ Ext.define('Ext.ux.LinkedComboContainer', {
             combo.queryMode = 'local';
 
             // ensure doLoad knows this has a user provided store
-            combo.userProvidedStore = !!combo.store;
+            combo.userProvidedStore = !!combo.store || this.store;
             
             // attach necessary listeners
             this.addComboEvents(combo);
