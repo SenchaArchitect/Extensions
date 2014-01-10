@@ -1,0 +1,26 @@
+{
+    "name": "LinkedComboContainer",
+    "type": "code",
+    "creator": "anonymous",
+    "summary": "Linked Combo Container",
+    "detailedDescription": "This extension makes it simple to create linked comboboxes, where the contents of each combobox are dependent upon the selection of the previous one.",
+    "version": "1.0.0",
+    "compatVersion": "1.0.0",
+    "format": "1",
+    "local": true,
+    "architect": {
+           "compatFrameworks": [
+               "ext42"
+           ],
+           "classes": [{
+               "definition": "LinkedComboContainer.Definition.js",
+               "className": "Ext.ux.LinkedComboContainer",
+               "js": [
+                   "LinkedComboContainer.js"
+               ],
+               "css": [
+               ]
+           }]
+       },
+    "requires": []
+}
