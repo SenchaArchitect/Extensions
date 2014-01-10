@@ -23,19 +23,6 @@
         "name":"listeners",
         "type":"object",
         "initialValue":null
-    },{
-        "name": "comboConfigs",
-        "type": "refgroup",
-        "initialValue":null
-    }],
-
-    listeners: [{
-        name: "create",
-        fn: "onCreate"
-    }],
-
-    onCreate: function(instance) {
-        console.log('created',instance);
-    }
+    }]
 
 }
